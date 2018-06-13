@@ -43,7 +43,6 @@ import os
 import bpy
 import bpy.props
 
-#import io_scene_nif
 from . import modules_path
 from . import nif_debug
 from . import properties, operators, ui

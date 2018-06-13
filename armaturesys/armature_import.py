@@ -142,7 +142,7 @@ class Armature():
 		for niBone in niChildBones:
 			self.import_bone(niBone, b_armature, b_armatureData, niArmature)
 
-				#fix the bone length
+		#fix the bone length
 		for bone in b_armatureData.edit_bones:
 			#don't change Bip01
 			if bone.parent:
@@ -150,12 +150,14 @@ class Armature():
 					childheads = mathutils.Vector()
 					for child in bone.children:
 						childheads += child.head
-					bone.length = (bone.head - childheads/len(bone.children)).length
-					if bone.length < 0.01:
-						bone.length = 0.25
+					bone_length = (bone.head - childheads/len(bone.children)).length
+					if bone_length < 0.01:
+						bone_length = 0.25
 				# end of a chain
 				else:
-					bone.length = bone.parent.length
+					bone_length = bone.parent.length
+				bone.length = bone_length
+				
 		bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
 		scn = bpy.context.scene
 		scn.objects.active = b_armature
